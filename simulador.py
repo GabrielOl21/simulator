@@ -8,7 +8,7 @@ class VirusSimulador:
     def __init__(self):
         self.senha_correta = "12345"
         self.abas_abertas = 0
-        self.max_abas = 2
+        self.max_abas = 50
         self.janelas = []
 
     def bloquear_fechamento(self, janela):
@@ -62,7 +62,7 @@ class VirusSimulador:
         # Bloquear fechamento
         self.root.protocol("WM_DELETE_WINDOW", lambda: self.bloquear_fechamento(self.root))
 
-        # Desabilitar Alt+F4, Alt+Tab, Escape
+        # Desabilitar Alt+F4, Alt+Tab, etc
         self.root.bind('<Alt-F4>', lambda e: 'break')
         self.root.bind('<Alt-Tab>', lambda e: 'break')
         self.root.bind('<Escape>', lambda e: 'break')
@@ -83,7 +83,7 @@ class VirusSimulador:
         for i in range(self.max_abas):
             self.abas_abertas += 1
             threading.Thread(target=self.criar_janela_aba, args=(i + 1,), daemon=True).start()
-            time.sleep(0)  # Intervalo rápido entre abas
+            time.sleep(0.4)  # Intervalo rápido entre abas
 
     def criar_janela_aba(self, numero):
         janela = tk.Toplevel()
@@ -119,10 +119,12 @@ class VirusSimulador:
         # Adicionar à lista de janelas para fechar depois
         self.janelas.append(janela)
 
-        # **REMOVIDO mainloop** para evitar travamentos
+        # Manter a janela aberta
+        janela.mainloop()
 
 # Executar o simulador
 if __name__ == "__main__":
+    # Executar o "vírus" (sem persistência)
     virus = VirusSimulador()
 
     # Iniciar abertura de abas em thread separada
