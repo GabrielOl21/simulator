@@ -25,10 +25,10 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --clean --noconsole --onedir simulator.py
+          pyinstaller --clean --noconsole --onedir simulador.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: simulator-exe
-          path: dist/simulator/
+          path: dist/simulador/
