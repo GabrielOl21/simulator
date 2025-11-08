@@ -1,1 +1,2 @@
-# simulator
+mkdir .github
+mkdir .github\workflows
